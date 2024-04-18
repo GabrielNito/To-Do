@@ -20,13 +20,13 @@ import {
 
 const Options = () => {
   return (
-    <>
+    <div className="flex justify-center items-center gap-2">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="outline">
+                <Button variant="outline" className="p-3">
                   <Trash className="w-5 h-5" />
                 </Button>
               </AlertDialogTrigger>
@@ -54,7 +54,7 @@ const Options = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="secondary" className="border">
+            <Button variant="outline" className="p-3">
               <Pen className="w-5 h-5" />
             </Button>
           </TooltipTrigger>
@@ -63,7 +63,7 @@ const Options = () => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-    </>
+    </div>
   );
 };
 

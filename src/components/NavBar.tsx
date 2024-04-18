@@ -17,7 +17,10 @@ const NavBar = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <Button variant="ghost" className="hover:bg-red-800">
+        <Button
+          variant="ghost"
+          className="hover:bg-red-500 hover:text-background dark:hover:bg-red-500 dark:hover:text-foreground duration-300"
+        >
           Delete Multiple Items
         </Button>
         <Form />

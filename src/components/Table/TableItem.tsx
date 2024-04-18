@@ -1,5 +1,6 @@
 import { Checkbox } from "../ui/checkbox";
 import { TableCell, TableRow } from "../ui/table";
+
 import Options from "./Options";
 import { Status } from "./Status/Status";
 import Tag from "./Tags";
@@ -12,12 +13,12 @@ const TableItem = ({ invoice }: TableItemProps) => {
   const { date, description, id, status, tags, title } = invoice;
 
   return (
-    <TableRow key={id}>
-      <TableCell className="flex gap-1">
+    <TableRow key={id} className="hover:bg-gray-200 dark:hover:bg-gray-800">
+      <TableCell className="">
         <Options />
       </TableCell>
 
-      <TableCell>
+      <TableCell className="border-x">
         <Status status={status} />
       </TableCell>
 
@@ -25,7 +26,7 @@ const TableItem = ({ invoice }: TableItemProps) => {
         <h1 className="text-base">{title}</h1>
       </TableCell>
 
-      <TableCell>{description}</TableCell>
+      <TableCell className="border-x">{description}</TableCell>
 
       <TableCell>
         {tags.map((tag: any, index: number) => {
@@ -33,10 +34,14 @@ const TableItem = ({ invoice }: TableItemProps) => {
         })}
       </TableCell>
 
-      <TableCell>{date}</TableCell>
+      <TableCell className="border-x">{date}</TableCell>
 
-      <TableCell hidden className="flex justify-end items-center mr-8">
-        <Checkbox hidden className="w-6 h-6 rounded-lg" />
+      <TableCell className="text-right">
+        <h1>{id}</h1>
+      </TableCell>
+
+      <TableCell hidden className="border-l w-fit text-center px-0">
+        <Checkbox hidden className="w-6 h-6 rounded-lg " />
       </TableCell>
     </TableRow>
   );

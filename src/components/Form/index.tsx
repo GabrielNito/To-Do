@@ -28,6 +28,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -41,9 +42,16 @@ import { Checkbox } from "../ui/checkbox";
 
 import Tag from "../Table/Tags";
 import FormDate from "./FormDate";
+import { useForm } from "react-hook-form";
 // import { DatePickerForm } from "./index copy";
 
 const Form = () => {
+  const { register, handleSubmit } = useForm();
+
+  function handleFilterProducts(data: any) {
+    console.log(data);
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -53,55 +61,63 @@ const Form = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Add new To Do</DialogTitle>
-        </DialogHeader>
-        <div className="grid gap-4 pt-4">
-          <div className="flex flex-col gap-2 justify-start">
-            <Label htmlFor="title">Title</Label>
-            <Input
-              id="title"
-              placeholder="e.g. Buy Coke"
-              className="col-span-3"
-            />
-          </div>
-          <div className="flex flex-col gap-2 justify-start">
-            <Label htmlFor="description">Description</Label>
-            <Input
-              id="description"
-              placeholder="e.g. A LOT"
-              className="col-span-3"
-            />
-          </div>
-        </div>
+        <form onSubmit={handleSubmit(handleFilterProducts)}>
+          <DialogHeader>
+            <DialogTitle>Add new To Do</DialogTitle>
+          </DialogHeader>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="description">Tags</Label>
-          <div className="flex justify-start gap-8 flex-wrap">
-            <div className="flex gap-2 items-center">
-              <Checkbox id="important" />
-              <Label htmlFor="important">
-                <Tag>Important</Tag>
-              </Label>
+          <div className="grid gap-4 pt-4 mb-4">
+            <div className="flex flex-col gap-2 justify-start">
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                placeholder="e.g. Buy strogonoff"
+                className="col-span-3"
+              />
             </div>
-            <div className="flex gap-2 items-center">
-              <Checkbox id="urgent" />
-              <Label htmlFor="urgent">
-                <Tag>Urgent</Tag>
-              </Label>
+            <div className="flex flex-col gap-2 justify-start">
+              <Label htmlFor="description">Description</Label>
+              <Input
+                id="description"
+                placeholder="e.g. a lot"
+                className="col-span-3"
+              />
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-col gap-4">
-          <Label htmlFor="description">Date</Label>
+          <div className="flex flex-col gap-2  mb-4">
+            <Label htmlFor="description">Tags</Label>
+            <div className="flex justify-start gap-8 flex-wrap">
+              <div className="flex gap-2 items-center">
+                <Checkbox id="important" />
+                <Label htmlFor="important">
+                  <Tag>Important</Tag>
+                </Label>
+              </div>
+              <div className="flex gap-2 items-center">
+                <Checkbox id="urgent" />
+                <Label htmlFor="urgent">
+                  <Tag>Urgent</Tag>
+                </Label>
+              </div>
+            </div>
+          </div>
 
-          <FormDate />
-        </div>
+          <div className="flex flex-col gap-4 mb-4">
+            <Label htmlFor="description">Date</Label>
 
-        <DialogFooter>
-          <Button type="submit">Save</Button>
-        </DialogFooter>
+            <FormDate />
+          </div>
+
+          <DialogFooter className="!justify-between">
+            <DialogClose asChild>
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button type="submit">Save</Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );

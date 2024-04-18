@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 
-const StatusLightVariants = cva("w-3 h-3 rounded-full", {
+const StatusLightVariants = cva("w-3 h-3 rounded-full transition", {
   variants: {
     variant: {
       Blocked: "bg-red-500",
