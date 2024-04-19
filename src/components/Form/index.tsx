@@ -1,30 +1,3 @@
-// import { useForm } from "react-hook-form";
-// import { Button } from "../ui/button";
-// // import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-// import { Input } from "../ui/input";
-
-// const Form_ = () => {
-//   const { register, handleSubmit } = useForm();
-
-//   function handleFilterProducts(data: any) {
-//     console.log(data);
-//   }
-
-//   return (
-//     <form
-//       onSubmit={handleSubmit(handleFilterProducts)}
-//       className="flex items-center gap-2"
-//     >
-//       <Input placeholder="ID do pedido" {...register("id")} />
-//       <Input placeholder="Nome do pedido" {...register("name")} />
-//       <Button type="submit" variant="secondary">
-//         Filtrar resoltados
-//       </Button>
-//     </form>
-//   );
-// };
-
-// export default Form_;
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -42,15 +15,24 @@ import { Checkbox } from "../ui/checkbox";
 
 import Tag from "../Table/Tags";
 import FormDate from "./FormDate";
-import { useForm } from "react-hook-form";
-// import { DatePickerForm } from "./index copy";
+import { SubmitErrorHandler, useForm } from "react-hook-form";
+import { addTaskHandler, addTaskHandlerSchema } from "./addTaskHandler";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Form = () => {
-  const { register, handleSubmit } = useForm();
-
-  function handleFilterProducts(data: any) {
-    console.log(data);
+  type addTaskSchema = z.infer<typeof addTaskHandlerSchema>;
+  const { register, handleSubmit } = useForm<addTaskSchema>({
+    resolver: zodResolver(addTaskHandlerSchema),
+  });
+  function handleFormAddTask(data: addTaskSchema) {
+    addTaskHandler(data);
   }
+  const onFormError: SubmitErrorHandler<typeof addTaskHandlerSchema> = (
+    error
+  ) => {
+    console.error(error);
+  };
 
   return (
     <Dialog>
@@ -61,7 +43,7 @@ const Form = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={handleSubmit(handleFilterProducts)}>
+        <form onSubmit={handleSubmit(handleFormAddTask, onFormError)}>
           <DialogHeader>
             <DialogTitle>Add new To Do</DialogTitle>
           </DialogHeader>
@@ -70,7 +52,7 @@ const Form = () => {
             <div className="flex flex-col gap-2 justify-start">
               <Label htmlFor="title">Title</Label>
               <Input
-                id="title"
+                {...register("title")}
                 placeholder="e.g. Buy strogonoff"
                 className="col-span-3"
               />
@@ -78,7 +60,7 @@ const Form = () => {
             <div className="flex flex-col gap-2 justify-start">
               <Label htmlFor="description">Description</Label>
               <Input
-                id="description"
+                {...register("description")}
                 placeholder="e.g. a lot"
                 className="col-span-3"
               />
@@ -89,13 +71,13 @@ const Form = () => {
             <Label htmlFor="description">Tags</Label>
             <div className="flex justify-start gap-8 flex-wrap">
               <div className="flex gap-2 items-center">
-                <Checkbox id="important" />
+                <Checkbox {...register("important")} />
                 <Label htmlFor="important">
                   <Tag>Important</Tag>
                 </Label>
               </div>
               <div className="flex gap-2 items-center">
-                <Checkbox id="urgent" />
+                <Checkbox {...register("urgent")} />
                 <Label htmlFor="urgent">
                   <Tag>Urgent</Tag>
                 </Label>
@@ -106,7 +88,7 @@ const Form = () => {
           <div className="flex flex-col gap-4 mb-4">
             <Label htmlFor="description">Date</Label>
 
-            <FormDate />
+            <FormDate {...register} />
           </div>
 
           <DialogFooter className="!justify-between">
