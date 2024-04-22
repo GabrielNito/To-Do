@@ -31,7 +31,7 @@ const invoices = [
 export function Table_() {
   return (
     <Table>
-      <TableHeader>
+      <TableHeader className="max-lg:hidden">
         <TableRow>
           <TableHead className="w-[5%]">Options</TableHead>
           <TableHead className="w-[10%]">Status</TableHead>

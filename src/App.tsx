@@ -1,7 +1,7 @@
 import ToDo from "./pages/ToDo";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LogIn from "./pages/LogIn";
+import LogIn from "./pages/Login";
 import SignIn from "./pages/SignIn";
 
 function App() {
