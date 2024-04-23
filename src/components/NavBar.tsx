@@ -1,5 +1,5 @@
 import { ModeToggle } from "./ModeToggle";
-import Form from "./Form";
+import Form_ from "./Form";
 import { ListTodo } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -25,20 +25,13 @@ const NavBar = ({ todo }: NavBarProps) => {
             </SheetTrigger>
             <SheetContent>
               <div className="w-full flex flex-col items-end gap-4 mt-8">
-                <Button variant="ghost">Log Out</Button>
+                {/* <div className="absolute top-8 left-8"> */}
+                <ModeToggle />
+                {/* </div> */}
 
-                <Button
-                  variant="ghost"
-                  className="hover:bg-red-500 hover:text-background dark:hover:bg-red-500 dark:hover:text-foreground duration-300"
-                >
-                  Delete Multiple Items
-                </Button>
+                <Button variant="outline">Log Out</Button>
 
-                <Form />
-
-                <div className="absolute top-8 left-8">
-                  <ModeToggle />
-                </div>
+                <Form_ />
               </div>
             </SheetContent>
           </Sheet>
@@ -47,17 +40,11 @@ const NavBar = ({ todo }: NavBarProps) => {
         <div className="w-full flex flex-row justify-between py-4 px-12 max-lg:hidden">
           <div className="flex item-center gap-2">
             <ModeToggle />
-            <Button variant="ghost">Log Out</Button>
+            <Button variant="outline">Log Out</Button>
           </div>
 
           <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              className="hover:bg-red-500 hover:text-background dark:hover:bg-red-500 dark:hover:text-foreground duration-300"
-            >
-              Delete Multiple Items
-            </Button>
-            <Form />
+            <Form_ />
           </div>
         </div>
       </nav>
