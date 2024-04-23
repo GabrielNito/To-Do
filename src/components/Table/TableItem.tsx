@@ -24,7 +24,6 @@ const TableItem = ({ invoice }: TableItemProps) => {
     max-lg:before:text-muted-foreground
     max-lg:before:block
     max-lg:before:capitalize 
-    max-lg:before:border-r 
     max-lg:before:border-muted 
     max-lg:before:h-full 
     max-lg:before:w-[20%]
