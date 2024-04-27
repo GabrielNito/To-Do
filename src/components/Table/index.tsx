@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -5,30 +6,38 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import moment from "moment";
 import TableItem from "./TableItem";
 
-let date = moment().format("MMMM Do YYYY h:mm");
-const invoices = [
-  {
-    id: 1,
-    status: "In_Progress" as const,
-    title: "Do the Dishes",
-    description: "wdym I have to do the dishes man",
-    tags: ["Important"],
-    date: date,
-  },
-  {
-    id: 2,
-    status: "Completed" as const,
-    title: "Pay bills",
-    description: "Gotta pay 'em",
-    tags: ["Urgent"],
-    date: date,
-  },
-];
-
 export function Table_() {
+  const [dados, setDados] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchList() {
+      try {
+        const token: string | null = window.localStorage.getItem("token");
+        const headers: HeadersInit = {
+          "Content-Type": "application/json",
+        };
+
+        if (token) {
+          headers["Authorization"] = token;
+        }
+
+        const response = await fetch(`http://localhost:3001/task/`, {
+          method: "GET",
+          headers: headers,
+        });
+
+        const data = await response.json();
+        setDados(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchList();
+  }, []);
+
   return (
     <Table>
       <TableHeader className="max-lg:hidden">
@@ -46,8 +55,8 @@ export function Table_() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableItem invoice={invoice} key={invoice.id} />
+        {dados.map((item) => (
+          <TableItem item={item} key={item.id} />
         ))}
       </TableBody>
     </Table>

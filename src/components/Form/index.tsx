@@ -25,12 +25,20 @@ import { cn } from "@/lib/utils";
 import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
 import { Checkbox } from "../ui/checkbox";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectValue,
+} from "../ui/select";
 
 const FormSchema = z.object({
   title: z.string({ errorMap: () => ({ message: "Title can't be empty" }) }),
   description: z.optional(z.string()),
-  important: z.boolean().default(false).optional(),
-  urgent: z.boolean().default(false).optional(),
+  tags: z.string(),
   date: z.date({
     errorMap: () => ({
       message: "A date is required",
@@ -39,11 +47,35 @@ const FormSchema = z.object({
 });
 
 const Form_ = () => {
+  async function fetchDefault(data: any) {
+    try {
+      const token: string | null = window.localStorage.getItem("token");
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+      };
+
+      if (token) {
+        headers["Authorization"] = token;
+      }
+
+      const response = await fetch(`http://localhost:3001/task/`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
   function formOnSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2));
+    fetchDefault(data);
   }
 
   return (
@@ -67,11 +99,7 @@ const Form_ = () => {
                 <FormItem className="flex flex-col relative">
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="e.g. Buy strogonoff"
-                      className="col-span-3"
-                    />
+                    <Input {...field} className="col-span-3" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -84,53 +112,34 @@ const Form_ = () => {
                 <FormItem className="flex flex-col relative">
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="e.g. Buy strogonoff"
-                      className="col-span-3"
-                    />
+                    <Input {...field} className="col-span-3" />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <div className="!mt-8">
-              <h1 className="font-medium text-sm">Tags</h1>
-              <div className="mt-2 flex gap-4">
-                <FormField
-                  control={form.control}
-                  name="important"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row-reverse items-center justify-center gap-2">
-                      <FormLabel>
-                        <Tag>Important</Tag>
-                      </FormLabel>
-                      <FormControl className="!mt-0">
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="urgent"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row-reverse items-center justify-center gap-2">
-                      <FormLabel>
-                        <Tag>Urgent</Tag>
-                      </FormLabel>
-                      <FormControl className="!mt-0">
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <div className="mt-2 flex gap-4">
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col relative">
+                    <FormLabel>Tags</FormLabel>
+                    <FormControl className="!mt-0">
+                      <Select onValueChange={field.onChange}>
+                        <SelectTrigger className="!w-full">
+                          <SelectValue placeholder="Select a value" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="Important">Important</SelectItem>
+                            <SelectItem value="Urgent">Urgent</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </div>
             <FormField
               control={form.control}
