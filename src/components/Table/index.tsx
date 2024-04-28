@@ -34,7 +34,6 @@ export function Table_() {
         console.error("Error:", error);
       }
     }
-
     fetchList();
   }, []);
 
@@ -48,10 +47,6 @@ export function Table_() {
           <TableHead>Description</TableHead>
           <TableHead>Tags</TableHead>
           <TableHead>Date</TableHead>
-          <TableHead className="text-right">id</TableHead>
-          <TableHead hidden className="w-[5%] border-l text-right">
-            Checkbox
-          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

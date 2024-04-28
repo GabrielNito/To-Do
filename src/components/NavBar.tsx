@@ -4,16 +4,13 @@ import { ListTodo } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import Test from "./test";
-import { useNavigate } from "react-router-dom";
 interface NavBarProps {
   todo?: boolean;
 }
 
 const NavBar = ({ todo }: NavBarProps) => {
-  const navigate = useNavigate();
-
   function logoutHandler() {
-    async function fetchDefault() {
+    async function fetchLogout() {
       try {
         const token: string | null = window.localStorage.getItem("token");
         const headers: HeadersInit = {
@@ -31,16 +28,11 @@ const NavBar = ({ todo }: NavBarProps) => {
 
         const result = await response.json();
         console.log("Success:", result);
-
-        if (result.name) {
-          window.localStorage.setItem("token", result.token);
-          navigate("/");
-        }
       } catch (error) {
         console.error("Error:", error);
       }
     }
-    fetchDefault();
+    fetchLogout();
   }
 
   if (todo) {

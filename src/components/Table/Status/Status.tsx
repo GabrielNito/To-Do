@@ -25,14 +25,41 @@ const statusVariants = cva({
 
 export interface StatusProps extends VariantProps<typeof statusVariants> {
   status: "Blocked" | "Cancelled" | "Completed" | "In_Progress" | "To_Do";
+  id: number;
 }
 
-const Status = ({ status }: StatusProps) => {
+const Status = ({ status, id }: StatusProps) => {
   const [light_status, setLight_status] = useState(status);
   const display_status = status.replace("_", " ");
 
+  async function fetchStatus(id: number, status: any) {
+    try {
+      const token: string | null = window.localStorage.getItem("token");
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+      };
+
+      if (token) {
+        headers["Authorization"] = token;
+      }
+
+      const response = await fetch(`http://localhost:3001/task/status/${id}`, {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify({ status: status }),
+      });
+
+      const result = await response.json();
+      console.log("Success:", result);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   function handleSelectState(newValue: any) {
     setLight_status(newValue);
+    fetchStatus(id, newValue);
   }
 
   return (

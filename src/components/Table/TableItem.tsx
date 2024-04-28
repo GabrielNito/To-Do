@@ -1,5 +1,4 @@
 import moment from "moment";
-import { Checkbox } from "../ui/checkbox";
 import { TableCell, TableRow } from "../ui/table";
 
 import Options from "./Options";
@@ -22,14 +21,14 @@ const TableItem = ({ item }: TableItemProps) => {
       className="hover:bg-gray-200 dark:hover:bg-gray-800 max-lg:m-4"
     >
       <TableCell data-cell="Options" className={responsiveness}>
-        <Options id={id} />
+        <Options item={item} />
       </TableCell>
 
       <TableCell
         data-cell="status"
         className={`${responsiveness} max-lg:before:w-[26%]`}
       >
-        <Status status={status} />
+        <Status id={id} status={status} />
       </TableCell>
 
       <TableCell data-cell="Title" className={responsiveness}>
@@ -46,17 +45,6 @@ const TableItem = ({ item }: TableItemProps) => {
 
       <TableCell data-cell="date" className={responsiveness}>
         {moment(date).format("MMMM Do YYYY")}
-      </TableCell>
-
-      <TableCell
-        data-cell="id"
-        className={`${responsiveness} text-right max-lg:text-left`}
-      >
-        <h1>{id}</h1>
-      </TableCell>
-
-      <TableCell className={`border-l w-fit text-center px-0`} hidden>
-        <Checkbox hidden className="w-6 h-6 rounded-lg " />
       </TableCell>
     </TableRow>
   );
