@@ -57,14 +57,12 @@ const Form_ = () => {
         headers["Authorization"] = token;
       }
 
-      const response = await fetch(`http://localhost:3001/task/`, {
+      await fetch(`http://localhost:3001/task/`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-      console.log("Success:", result);
       toast({
         title: "Task created",
         description: "Please reload page to see the updated content",

@@ -66,7 +66,6 @@ const LogIn = ({ variant }: LoginProps) => {
         });
 
         const result = await response.json();
-        // console.log("Success:", result);
 
         if (result.error) {
           toast({
@@ -104,7 +103,6 @@ const LogIn = ({ variant }: LoginProps) => {
         });
 
         const result = await response.json();
-        // console.log("Success:", result);
 
         if (result.name) {
           toast({

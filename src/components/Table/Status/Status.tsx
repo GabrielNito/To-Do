@@ -43,14 +43,12 @@ const Status = ({ status, id }: StatusProps) => {
         headers["Authorization"] = token;
       }
 
-      const response = await fetch(`http://localhost:3001/task/status/${id}`, {
+      await fetch(`http://localhost:3001/task/status/${id}`, {
         method: "PUT",
         headers: headers,
         body: JSON.stringify({ status: status }),
       });
 
-      const result = await response.json();
-      console.log("Success:", result);
       window.location.reload();
     } catch (error) {
       console.error("Error:", error);

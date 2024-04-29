@@ -68,14 +68,12 @@ const Edit = ({ item }: EditProps) => {
         headers["Authorization"] = token;
       }
 
-      const response = await fetch(`http://localhost:3001/task/${id}`, {
+      await fetch(`http://localhost:3001/task/${id}`, {
         method: "PUT",
         headers: headers,
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-      console.log("Success:", result);
       toast({
         title: "Task updated",
         description: "Please reload page to see the updated content",

@@ -3,7 +3,6 @@ import Form_ from "./Form";
 import { ListTodo } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import Test from "./test";
 interface NavBarProps {
   todo?: boolean;
 }
@@ -21,13 +20,10 @@ const NavBar = ({ todo }: NavBarProps) => {
           headers["Authorization"] = token;
         }
 
-        const response = await fetch(`http://localhost:3001/auth/logout`, {
+        fetch(`http://localhost:3001/auth/logout`, {
           method: "POST",
           headers: headers,
         });
-
-        const result = await response.json();
-        console.log("Success:", result);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -81,7 +77,6 @@ const NavBar = ({ todo }: NavBarProps) => {
     <div className="flex justify-center items-center py-4 px-12 mb-4">
       <div className="absolute left-12 top-4">
         <ModeToggle />
-        <Test />
       </div>
 
       <div className="flex gap-4 items-center relative">
