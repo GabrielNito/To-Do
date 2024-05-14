@@ -1,4 +1,4 @@
-import { Moon, Sun } from "lucide-react";
+import { LaptopMinimal, Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,14 +22,23 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
+        <DropdownMenuItem
+          className="flex justify-between"
+          onClick={() => setTheme("light")}
+        >
+          <Sun /> Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
+        <DropdownMenuItem
+          className="flex justify-between"
+          onClick={() => setTheme("dark")}
+        >
+          <Moon /> Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
+        <DropdownMenuItem
+          className="flex justify-between"
+          onClick={() => setTheme("system")}
+        >
+          <LaptopMinimal /> System
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
