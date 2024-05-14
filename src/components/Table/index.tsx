@@ -23,10 +23,13 @@ export function Table_() {
           headers["Authorization"] = token;
         }
 
-        const response = await fetch(`http://localhost:3001/task/`, {
-          method: "GET",
-          headers: headers,
-        });
+        const response = await fetch(
+          `https://to-do-test-ov9q.onrender.com/task/`,
+          {
+            method: "GET",
+            headers: headers,
+          }
+        );
 
         const data = await response.json();
         setDados(data);

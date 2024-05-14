@@ -3,11 +3,14 @@ import Form_ from "./Form";
 import { ListTodo } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useNavigate } from "react-router-dom";
+
 interface NavBarProps {
   todo?: boolean;
 }
 
 const NavBar = ({ todo }: NavBarProps) => {
+  const navigate = useNavigate();
   function logoutHandler() {
     async function fetchLogout() {
       try {
@@ -20,7 +23,7 @@ const NavBar = ({ todo }: NavBarProps) => {
           headers["Authorization"] = token;
         }
 
-        fetch(`http://localhost:3001/auth/logout`, {
+        fetch(`https://to-do-test-ov9q.onrender.com/auth/logout`, {
           method: "POST",
           headers: headers,
         });
@@ -29,6 +32,7 @@ const NavBar = ({ todo }: NavBarProps) => {
       }
     }
     fetchLogout();
+    navigate("/");
   }
 
   if (todo) {
@@ -63,7 +67,9 @@ const NavBar = ({ todo }: NavBarProps) => {
         <div className="w-full flex flex-row justify-between py-4 max-lg:hidden">
           <div className="flex item-center gap-2">
             <ModeToggle />
-            <Button variant="outline">Log Out</Button>
+            <Button variant="outline" onClick={logoutHandler}>
+              Log Out
+            </Button>
           </div>
 
           <div className="flex items-center gap-4">

@@ -43,7 +43,7 @@ const Status = ({ status, id }: StatusProps) => {
         headers["Authorization"] = token;
       }
 
-      await fetch(`http://localhost:3001/task/status/${id}`, {
+      await fetch(`https://to-do-test-ov9q.onrender.com/task/status/${id}`, {
         method: "PUT",
         headers: headers,
         body: JSON.stringify({ status: status }),

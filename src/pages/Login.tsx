@@ -59,11 +59,14 @@ const LogIn = ({ variant }: LoginProps) => {
           headers["Authorization"] = token;
         }
 
-        const response = await fetch(`http://localhost:3001/auth/login`, {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          `https://to-do-test-ov9q.onrender.com/auth/login`,
+          {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data),
+          }
+        );
 
         const result = await response.json();
 
@@ -96,11 +99,14 @@ const LogIn = ({ variant }: LoginProps) => {
           headers["Authorization"] = token;
         }
 
-        const response = await fetch(`http://localhost:3001/auth/register`, {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          `https://to-do-test-ov9q.onrender.com/auth/register`,
+          {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data),
+          }
+        );
 
         const result = await response.json();
 

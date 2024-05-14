@@ -68,7 +68,7 @@ const Edit = ({ item }: EditProps) => {
         headers["Authorization"] = token;
       }
 
-      await fetch(`http://localhost:3001/task/${id}`, {
+      await fetch(`https://to-do-test-ov9q.onrender.com/task/${id}`, {
         method: "PUT",
         headers: headers,
         body: JSON.stringify(data),
